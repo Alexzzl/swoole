@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>From Swoole WebSocket</title>
+</head>
+<body>
+    <h1>From Swoole WebSocket</h1>
+    <script>
+        var wsUrl = "ws://127.0.0.1:8812";
+
+        var webSocket = new WebSocket(wsUrl);
+
+        webSocket.onopen = function(evt) {
+            webSocket.send("Hello Alex!!");
+            console.log("connected swoole success!!");
+        }
+
+        webSocket.onmessage = function(evt) {
+            console.log("WebSocket Server return data: " + evt.data);
+        }
+
+        webSocket.onclose = function(evt) {
+            console.log("WebSockt is closed");
+            
+        }
+
+        webSocket.onerror = function(evt, e) {
+            console.log("error:" + evt.data);
+        }
+
+    </script>
+</body>
+</html>
