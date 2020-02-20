@@ -26,21 +26,25 @@ class AysMySQL {
     public function execute($id, $name)
     {
         // connect
-        $this->dbSource->connect($this->dbConfig, function($db, $result){
+        $this->dbSource->connect($this->dbConfig, function($db, $result) use ($id,$name){
+            echo "mysql-connect".PHP_EOL;
             if(!$result){
                 var_dump($db->connect_error);
             }
 
-            $sql = "select * from tags where id=1";
+            // $sql = "select * from tags where id=1";
+            $sql = "update tags set `name`='".$name."' where id=".$id;
             $db->query($sql, function($db, $result){
 
                 if($result === false) {
-
+                    // TODO
+                    // var_dump($db->error);
                 } elseif($result === true) { // add update delete
-
+                    // TODO
                 } else { // select
                     print_r($result);
                 }
+                $db->close();
             });
         });
         return true;
@@ -49,7 +53,9 @@ class AysMySQL {
 }
 
 $obj = new AysMySQL();
-$obj->execute(1,'test');
+$flag = $obj->execute(1,'test');
+var_dump($flag).PHP_EOL;
+echo "start".PHP_EOL;
 
 
 // $db = new swoole_mysql();
